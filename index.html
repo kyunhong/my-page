@@ -1,5 +1,234 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><title>My Page</title></head>
-<body><h1>Hello!</h1></body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>메가홍균의 자기소개</title>
+<style>
+  body { margin: 0; font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: linear-gradient(180deg, #fff0f5 0%, #f3f0ff 100%); color: #333; }
+  .container { max-width: 640px; margin: 0 auto; padding: 32px 20px 48px; }
+  .hero { text-align: center; padding: 28px 20px; }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; background: #ffd6e7; display: flex; align-items: center; justify-content: center; font-size: 48px; margin: 0 auto 12px; }
+  h1 { font-size: 32px; margin: 0; color: #e0457b; }
+  .hero p { color: #777; margin: 8px 0 0; }
+  .card { background: #fff; border-radius: 20px; padding: 22px; margin-top: 18px; box-shadow: 0 6px 20px rgba(224, 69, 123, .12); }
+  .card h2 { margin: 0 0 12px; font-size: 20px; }
+  .likes { display: flex; gap: 10px; flex-wrap: wrap; }
+  .likes span { background: #fff0f5; border-radius: 999px; padding: 8px 16px; font-weight: 700; }
+  .quiz button { background: #e0457b; color: #fff; border: 0; border-radius: 12px; padding: 10px 26px; font-size: 18px; font-weight: 700; margin-right: 8px; cursor: pointer; }
+  #result { margin-top: 12px; font-weight: 700; }
+  footer { text-align: center; color: #aaa; font-size: 13px; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="avatar">😎</div>
+    <h1>메가홍균</h1>
+    <p>귀엽고 상큼한 고2 개발자 지망생</p>
+  </section>
+  <section class="card">
+    <h2>내가 좋아하는 것</h2>
+    <div class="likes"><span>포켓몬</span><span>홍균</span><span>김밥</span></div>
+  </section>
+  <section class="card quiz">
+    <h2>나에 대한 OX 퀴즈</h2>
+    <p>나는 귀엽다</p>
+    <button onclick="answer('O')">O</button><button onclick="answer('X')">X</button>
+    <div id="result"></div>
+  </section>
+  <footer>© 2026 메가홍균</footer>
+</div>
+<script>
+  function answer(a) {
+    document.getElementById('result').textContent = a === 'O' ? '정답! 나는 귀여워요 🎉' : '땡! 다시 생각해 보세요';
+  }
+</script>
+<!-- ▼ 방명록 (4차시 방명록·투표) ▼ -->
+<sb-widget id="sb-gb" style="display:block;width:100%;max-width:640px;margin:32px auto;flex:1 1 100%;grid-column:1/-1;align-self:stretch;box-sizing:border-box"></sb-widget>
+<script>
+(function () {
+  var C = {"id":"sb-gb","type":"gb","url":"https://script.google.com/macros/s/AKfycbyjxIsPqlBxQ9TQnGgadp2TxJ1_TZIT618xzRnZtamt9esGFr7itPC_cxmDMzYdHcVU/exec","title":"방명록","answer":"","sel":"body > div:nth-child(1) > footer:nth-child(4)","pos":"before"};
+  var host = document.getElementById(C.id);
+  if (!host || host.sbReady) return;
+  host.sbReady = true;
+  var PREVIEW = !!window.__SB_PREVIEW;
+
+  function place() {
+    if (!C.sel) return;
+    var t = null;
+    try { t = document.querySelector(C.sel); } catch (e) {}
+    if (!t || t === host || t.contains(host) || !t.parentNode) return;
+    if (C.pos === 'before') { if (t.previousElementSibling !== host) t.parentNode.insertBefore(host, t); }
+    else if (t.nextElementSibling !== host) t.parentNode.insertBefore(host, t.nextSibling);
+  }
+
+  function rgb(s) { var m = (s || '').match(/[\d.]+/g); return m ? m.map(Number) : null; }
+  function lum(c) { return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255; }
+  function pageBg() {
+    var el = host.parentElement;
+    while (el) { var c = rgb(getComputedStyle(el).backgroundColor); if (c && (c.length < 4 || c[3] > 0.5)) return c; el = el.parentElement; }
+    return [255, 255, 255];
+  }
+  function accent() {
+    var els = document.querySelectorAll('button, .btn, a, h1, h2');
+    for (var i = 0; i < els.length && i < 60; i++) {
+      if (host.contains(els[i])) continue;
+      var cs = getComputedStyle(els[i]);
+      var list = [cs.backgroundColor, cs.color];
+      for (var j = 0; j < 2; j++) {
+        var c = rgb(list[j]);
+        if (!c || (c.length > 3 && c[3] < 0.5)) continue;
+        var mx = Math.max(c[0], c[1], c[2]), mn = Math.min(c[0], c[1], c[2]);
+        if (mx - mn > 60 && lum(c) > 0.2 && lum(c) < 0.8) return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')';
+      }
+    }
+    return '#E5486F';
+  }
+
+  var root = host.attachShadow ? host.attachShadow({ mode: 'open' }) : host;
+  root.innerHTML = '<' + 'style>' +
+    '.card{box-sizing:border-box;font-family:inherit;font-size:16px;line-height:1.6;text-align:left;border-radius:16px;padding:20px;background:rgba(255,255,255,.94);color:#222;border:1px solid rgba(0,0,0,.1);box-shadow:0 4px 18px rgba(0,0,0,.08)}' +
+    '.card.dark{background:rgba(20,20,28,.9);color:#f3f3f6;border-color:rgba(255,255,255,.18)}' +
+    '.card *{box-sizing:border-box;font-family:inherit}' +
+    'h3{margin:0 0 12px;font-size:20px;line-height:1.35;color:inherit}' +
+    '.row{display:flex;gap:8px;flex-wrap:wrap}' +
+    'input,textarea{flex:1 1 140px;min-width:0;font-size:16px;padding:10px 12px;border-radius:10px;border:1px solid #ccc;background:#fff;color:inherit}' +
+    '.dark input,.dark textarea{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}' +
+    'textarea{flex-basis:100%;resize:vertical;min-height:70px}' +
+    'button{font-size:16px;font-weight:700;border:0;border-radius:10px;padding:10px 18px;cursor:pointer;background:var(--a,#E5486F);color:#fff}' +
+    'button:disabled{opacity:.5;cursor:default}' +
+    '.msg{margin:8px 0 0;font-size:14px;min-height:1em;opacity:.85}' +
+    '.list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto}' +
+    '.list li{padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.04);word-break:break-all}.dark .list li{background:rgba(255,255,255,.07)}' +
+    '.list b{margin-right:6px}.list small{opacity:.6;font-size:12px}.list p{margin:2px 0 0;white-space:pre-wrap}' +
+    '.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px;font-size:14px;opacity:.85}' +
+    '.top .re{background:transparent;color:inherit;border:1px solid currentColor;padding:4px 10px;font-size:13px;font-weight:400;opacity:.8}' +
+    '.ox{display:flex;gap:10px}.ox button{flex:1;font-size:28px;padding:12px 0}' +
+    '.ox .x{background:#4A6CF7}.ox .o{background:#E5486F}' +
+    '.bar{display:flex;height:34px;border-radius:10px;overflow:hidden;margin-top:14px;background:#e8e8ee}.dark .bar{background:rgba(255,255,255,.12)}' +
+    '.bar span{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;transition:width .6s}' +
+    '.bar .o{background:#E5486F}.bar .x{background:#4A6CF7}' +
+    '.legend{display:flex;justify-content:space-between;font-size:14px;margin-top:6px}' +
+    '.mine{outline:3px solid #222;outline-offset:2px}.dark .mine{outline-color:#fff}' +
+    '</' + 'style><div class="card"></div>';
+  var card = root.querySelector('.card');
+  function theme() {
+    try { card.classList.toggle('dark', lum(pageBg()) < 0.4); card.style.setProperty('--a', accent()); } catch (e) {}
+  }
+
+  var FLAG = 'sb-done:' + C.type + ':' + C.url, memFlag = null;
+  function getFlag() { if (PREVIEW) return memFlag; try { return localStorage.getItem(FLAG); } catch (e) { return memFlag; } }
+  function setFlag(v) { memFlag = v; if (PREVIEW) return; try { localStorage.setItem(FLAG, v); } catch (e) {} }
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function time(v) {
+    var d = new Date(v); if (isNaN(d)) return '';
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  function norm(list) {
+    if (!Array.isArray(list)) throw new Error('bad');
+    return list.map(function (r) { var o = {}; for (var k in r) o[String(k).trim()] = r[k]; return o; });
+  }
+  function sample() {
+    var now = new Date().toISOString();
+    if (C.type === 'ox') { var a = []; for (var i = 0; i < 10; i++) a.push({ '시간': now, '답': i < 7 ? 'O' : 'X' }); return a; }
+    return [{ '시간': now, '닉네임': '예시 친구', '내용': '미리보기용 예시 글이에요. 실제 페이지에서는 친구들이 남긴 글이 보여요.' }];
+  }
+  function load() {
+    if (PREVIEW) return Promise.resolve(sample());
+    return fetch(C.url).then(function (r) { return r.json(); }).then(norm);
+  }
+  function send(data) {
+    if (PREVIEW) return Promise.reject(new Error('preview'));
+    return fetch(C.url, { method: 'POST', body: JSON.stringify(data) }).then(function (r) { return r.text(); });
+  }
+  function failText(e) {
+    return e && e.message === 'preview' ? '미리보기에서는 저장되지 않아요. GitHub에 올린 뒤 시험해요.' : '서버와 연결하지 못했어요. 잠시 뒤 다시 눌러 보세요.';
+  }
+
+  function placeAndTheme() { place(); theme(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', placeAndTheme); else placeAndTheme();
+  window.addEventListener('load', function () { placeAndTheme(); setTimeout(placeAndTheme, 500); });
+
+  if (C.type === 'ox') buildOX(); else buildGB();
+
+  function buildGB() {
+    card.appendChild(el('h3', '', C.title || '방명록'));
+    var form = el('div', 'row');
+    var nick = el('input'); nick.placeholder = '닉네임 (10자까지)'; nick.maxLength = 10;
+    var text = el('textarea'); text.placeholder = '남기고 싶은 말 (100자까지)'; text.maxLength = 100;
+    var btn = el('button', '', '남기기');
+    form.appendChild(nick); form.appendChild(text); form.appendChild(btn);
+    var msg = el('p', 'msg');
+    var top = el('div', 'top'); var count = el('span', '', '불러오는 중…'); var re = el('button', 're', '↻ 새로고침');
+    top.appendChild(count); top.appendChild(re);
+    var ul = el('ul', 'list');
+    card.appendChild(form); card.appendChild(msg); card.appendChild(top); card.appendChild(ul);
+    function lock() { form.style.display = 'none'; msg.textContent = '방명록을 남겼어요. 고마워요!'; }
+    if (getFlag()) lock();
+    function show(list) {
+      ul.innerHTML = '';
+      count.textContent = '방명록 ' + list.length + '개';
+      list.slice().reverse().forEach(function (r) {
+        var li = el('li'); li.appendChild(el('b', '', r['닉네임'] || '익명')); li.appendChild(el('small', '', time(r['시간'])));
+        li.appendChild(el('p', '', r['내용'] || '')); ul.appendChild(li);
+      });
+    }
+    function refresh() { count.textContent = '불러오는 중…'; load().then(show, function () { count.textContent = '목록을 불러오지 못했어요.'; }); }
+    re.addEventListener('click', refresh);
+    btn.addEventListener('click', function () {
+      var n = nick.value.trim(), t = text.value.trim();
+      if (!n || !t) { msg.textContent = '닉네임과 내용을 모두 써 주세요.'; return; }
+      btn.disabled = true; msg.textContent = '저장 중…';
+      send({ '닉네임': n, '내용': t }).then(function () { setFlag('1'); lock(); refresh(); }, function (e) { msg.textContent = failText(e); btn.disabled = false; });
+    });
+    refresh();
+  }
+
+  function buildOX() {
+    card.appendChild(el('h3', '', 'Q. ' + (C.title || '')));
+    var box = el('div', 'ox'); var bo = el('button', 'o', 'O'); var bx = el('button', 'x', 'X');
+    box.appendChild(bo); box.appendChild(bx);
+    var msg = el('p', 'msg');
+    var bar = el('div', 'bar'); var so = el('span', 'o'); var sx = el('span', 'x'); bar.appendChild(so); bar.appendChild(sx);
+    var lg = el('div', 'legend'); var lo = el('span'); var lx = el('span'); lg.appendChild(lo); lg.appendChild(lx);
+    var top = el('div', 'top'); var count = el('span', '', '불러오는 중…'); var re = el('button', 're', '↻ 새로고침');
+    top.appendChild(count); top.appendChild(re);
+    card.appendChild(box); card.appendChild(msg); card.appendChild(bar); card.appendChild(lg); card.appendChild(top);
+    function mark() {
+      var f = getFlag(); if (!f) return;
+      bo.disabled = bx.disabled = true;
+      (f === 'O' ? bo : bx).classList.add('mine');
+      var t = '내 선택: ' + f;
+      if (C.answer) t += ' · 정답은 ' + C.answer + (f === C.answer ? ' (맞혔어요!)' : ' (아쉬워요!)');
+      msg.textContent = t;
+    }
+    mark();
+    function show(list) {
+      var o = 0, x = 0;
+      list.forEach(function (r) { var a = String(r['답'] || '').trim().toUpperCase(); if (a === 'O') o++; else if (a === 'X') x++; });
+      var n = o + x, po = n ? Math.round(o / n * 100) : 50;
+      so.style.width = po + '%'; sx.style.width = (100 - po) + '%';
+      so.textContent = n && po >= 12 ? 'O ' + po + '%' : ''; sx.textContent = n && 100 - po >= 12 ? 'X ' + (100 - po) + '%' : '';
+      lo.textContent = 'O ' + o + '명'; lx.textContent = 'X ' + x + '명';
+      count.textContent = n ? '총 ' + n + '명 참여' : '아직 아무도 투표하지 않았어요';
+    }
+    function refresh() { count.textContent = '불러오는 중…'; load().then(show, function () { count.textContent = '결과를 불러오지 못했어요.'; }); }
+    re.addEventListener('click', refresh);
+    function vote(v) {
+      if (getFlag()) return;
+      bo.disabled = bx.disabled = true; msg.textContent = '저장 중…';
+      send({ '답': v }).then(function () { setFlag(v); mark(); refresh(); }, function (e) { msg.textContent = failText(e); bo.disabled = bx.disabled = false; });
+    }
+    bo.addEventListener('click', function () { vote('O'); });
+    bx.addEventListener('click', function () { vote('X'); });
+    refresh();
+  }
+})();
+
+</script>
+<!-- ▲ 방명록 끝 ▲ -->
+</body>
 </html>
